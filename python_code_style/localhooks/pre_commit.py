@@ -15,6 +15,7 @@ from file_exclude import check_server_file_exlucde
 from tempfile import mkstemp
 from os import fdopen
 from shutil import move
+import platform
 
 reload(sys)
 sys.setdefaultencoding('utf8')
@@ -86,7 +87,21 @@ class PreCommit(object):
 			self.pass_special_mask_field = False
 			return
 		self.changelist = self._filter_changelist_by_special_files(self.changelist)
-		self.needCheckScript = True
+		if not const.is_windows:
+			self.changelist = self._change_to_dest_path(self.changelist)
+
+		for localPath in self.changelist:
+			for sp in checkPath.checkPath:
+				if localPath.startswith(sp):
+					self .needCheckScript = True
+					break
+
+	def _change_to_dest_path(self, changelist):
+		ret = []
+		path_dir = self.localProjectRoot[0:self.localProjectRoot.find('.git')]
+		for filename in changelist:
+			ret.append(path_dir + filename)
+		return ret
 
 	def _filter_special_mask_field(self):
 		check_result = ''
@@ -134,8 +149,12 @@ class PreCommit(object):
 		return False
 
 	def _check_single_file_valid(self, file, check_file):
-		if not file.endswith('.py') or len(file.split(check_file)) <= 1:
-			return False
+		if const.is_windows:
+			if not file.startswith(check_file) or not file.endswith('.py') or len(file.split(check_file)) <= 1:
+				return False
+		else:
+			if not file.endswith('.py'):
+				return False
 		if not os.path.exists(file):
 			return False
 		if file in const.whiteList:
@@ -150,7 +169,7 @@ class PreCommit(object):
 			g.logger.info('checkUrl:' + file + '\r\n')
 			ini_path = self.localProjectRoot.replace('\\', '/').replace('localhooks/pre_commit.py', 'tox.ini')
 			tox_working_path = self.localProjectRoot[0: self.localProjectRoot.find('localhooks')]
-			p = subprocess.Popen(['python', '-m', 'flake8', '--config', ini_path, file], stdout=subprocess.PIPE,
+			p = subprocess.Popen('python -m flake8 --config=%s %s' % (ini_path, file), stdout=subprocess.PIPE,
 								 stderr=subprocess.PIPE, shell=True, cwd=tox_working_path)
 			stdout, stderr = p.communicate()
 			if stderr:
@@ -158,7 +177,6 @@ class PreCommit(object):
 				g.logger.error(stderr.decode('gbk') + '\r\n')
 				sys.stderr.write('please contact huangtao3@corp.netease.com: client-side pre-hook error! \r\n')
 				return False, check_result
-
 			check_result_list = stdout.replace(file, '').split('\n')[:-1]
 			for res in check_result_list:
 				check_result = check_result + file + ':' + res + '\n'
@@ -196,7 +214,15 @@ if __name__ == '__main__':
 	if flag:
 		initLogger(sys.argv[0])
 		g.logger.info(str(sys.argv) + '\r\n')
-		changelist = sys.argv[1:]
+		g.logger.info(platform.system())
+		if 'Window' in platform.system():
+			const.is_windows = True
+		else:
+			const.is_windows = False
+		if const.is_windows:
+			changelist = getContentFromFile(sys.argv[1]).splitlines()
+		else:
+			changelist = sys.argv[1:]
 		localProjectRoot = sys.argv[0]
 		precommit = PreCommit(changelist, localProjectRoot)
 		sys.exit(0 if precommit.check() else 1)
