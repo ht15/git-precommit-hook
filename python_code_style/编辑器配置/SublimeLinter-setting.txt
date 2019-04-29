@@ -1,0 +1,38 @@
+{
+    "debug": true,
+    "linters": {
+        // The name of the linter you installed
+        "flake8": {
+            // Additional arguments for the command line. Either a 'string'
+            // or an 'array'. If set to a string, we 'shlex.split' it*.
+            // E.g. '--ignore D112' or ['--config', './.config/foo.ini']
+            //
+            // * Note: Use proper quoting around paths esp. on Windows!
+            "args": ["--config=E:\\H48\\code\\programer_tools\\python_code_style\\tox.ini"],  // 使用项目的flake8配置
+
+
+            // **Only valid for PythonLinter**
+            // Specify which python to use. Either a number or full path
+            // to a python binary. SL will then basically use 'python -m'
+            // to run the linter.
+            "styles": [
+                {
+                    "mark_style": "squiggly_underline"
+                }
+            ],
+            "python": "D:\\Python2.7.15\\python.exe",  //python路径
+            "working_dir": "E:\\H48\\code\\programer_tools\\python_code_style",  // 需要指定python_code_style所在的路径
+            "lint_mode": "background",
+
+        }
+    },
+
+
+    // Provide extra paths to be searched when locating system executables.
+    "paths": {
+        "linux": [],
+        "osx": [],
+        "windows": []
+    },
+
+}

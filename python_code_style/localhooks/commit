@@ -1,0 +1,121 @@
+#!/bin/bash
+PATH=$HOME/bin:$PATH;
+export PATH
+DIF=()
+LOG=''
+FLAG=false
+if [ $# -eq 2 ]
+then
+    for i in "$@"
+    do
+        if $FLAG
+        then
+            LOG=$i
+            FLAG=false
+        fi
+
+        if [ "$i" = '-m' ]
+        then
+            FLAG=true
+        fi
+    done    
+elif [ $# -gt 2 ]
+then
+    for i in "$@" 
+    do  
+        if $FLAG
+        then
+            LOG=$i
+            FLAG=false
+            continue
+        fi
+        if [ "$i" != '-m' ]
+        then
+            DIF=(${DIF[@]} $i)
+        else
+            FLAG=true
+        fi 
+    done
+else
+  FLAG=false  
+fi
+
+#echo $LOG
+#echo ${DIF[*]}
+#echo ${#DIF[*]}
+
+#svn diff ${DIF[*]}
+if [ "$LOG" = '' ]
+then
+    echo [svn client hook]svn Log can not be empty!!!
+else
+    MyPath="$( cd "$( dirname "$0"  )" && pwd  )"
+    LOCALROOT="$( cd "$( dirname "$0"  )" && cd ".."  && pwd  )"
+    PATH_FILE=`mktemp $MyPath/svn_path.log.h4.XXXXXX`
+    URL_FILE=`mktemp $MyPath/url_file.log.h4.XXXXXX`
+    DIFF_PATH=`mktemp $MyPath/diff_path.log.h4.XXXXXX`
+    DEBUG_FILE=`mktemp $MyPath/debug_file.log.h4.XXXXXX`
+    RES_FILE=$MyPath/res-file
+    POSI_FILE=$MyPath/posi-file
+    ABS_PATH=`mktemp $MyPath/abs_file.log.h4.XXXXXX`
+    TEMP_PATH=`mktemp $MyPath/tmp-file.log.h4.XXXXXX`
+
+    echo ''>$PATH_FILE
+    echo ''>$URL_FILE
+    echo ''>$DIFF_PATH
+    echo ''>$DEBUG_FILE
+    echo ''>$RES_FILE
+    echo ''>$ABS_PATH
+    echo ''>$POSI_FILE
+
+    SCRIPT="python $MyPath/pre_param.py run_precommit"
+ 
+    #svn info $MyPath > $PATH_FILE
+
+    #cat $PATH_FILE|grep '^URL'|cut -b 6- > $URL_FILE
+    #isurl=`cat $URL_FILE`
+
+    if [ '$true' ]
+    #if [ "$isurl" = "svn://10.246.46.68:9877/demo" ] 
+    then
+        echo 'start static code review!'
+        svn diff ${DIF[*]}|grep '^Index: '|cut -b 8- > $TEMP_PATH
+        sort -u $TEMP_PATH >$DIFF_PATH
+        pwd > $ABS_PATH
+        
+        LANG=zh_CN.UTF-8 $SCRIPT "$DIFF_PATH" "$RES_FILE" "$LOCALROOT" "$ABS_PATH" "$POSI_FILE" >> $DEBUG_FILE
+    
+        ispassed=$?
+   
+        rm -f -- "$PATH_FILE"
+        rm -f -- "$URL_FILE"
+        rm -f -- "$DIFF_PATH"
+        rm -f -- "$DEBUG_FILE"
+        rm -f -- "$ABS_PATH"
+        rm -f -- "$TEMP_PATH"
+   
+        if [ $ispassed -ne 0 ]
+        then
+            PRE_RET=`cat $RES_FILE`
+            echo "-----------------------------------------" >&2
+            echo "$PRE_RET" >&2
+            echo "-----------------------------------------" >&2
+            exit 1
+        else
+            LOG_POSI=`cat $POSI_FILE`
+            svn ci ${DIF[*]} -m "$LOG$LOG_POSI"
+            exit 0
+        fi
+    else
+
+        rm -f -- "$PATH_FILE"
+        rm -f -- "$URL_FILE"
+        rm -f -- "$DIFF_PATH"
+        rm -f -- "$DEBUG_FILE"
+        rm -f -- "$ABS_PATH"
+        rm -f -- "$TEMP_PATH"
+
+        svn ci ${DIF[*]} -m "$LOG"
+        exit 0
+    fi
+fi
