@@ -19,11 +19,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="pre_commit.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="pre_commit.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/localhooks/pre_commit.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="738">
-              <caret line="184" lean-forward="true" selection-start-line="184" selection-end-line="184" />
+            <state relative-caret-position="380">
+              <caret line="210" column="72" lean-forward="true" selection-start-line="210" selection-start-column="72" selection-end-line="210" selection-end-column="72" />
               <folding>
                 <element signature="e#46#63#0" expanded="true" />
               </folding>
@@ -48,13 +48,13 @@
       <file leaf-file-name="pre-commit.log" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/localhooks/pre-commit.log">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+            <state relative-caret-position="216">
+              <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="checkPath.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="checkPath.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/localhooks/checkPath.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="297">
@@ -148,8 +148,8 @@
       <list>
         <option value="$PROJECT_DIR$/localhooks/file_exclude.py" />
         <option value="$PROJECT_DIR$/localhooks/const.py" />
-        <option value="$PROJECT_DIR$/localhooks/pre_commit.py" />
         <option value="$PROJECT_DIR$/localhooks/checkPath.py" />
+        <option value="$PROJECT_DIR$/localhooks/pre_commit.py" />
       </list>
     </option>
   </component>
@@ -646,23 +646,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/localhooks/pre_commit.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="738">
-          <caret line="184" lean-forward="true" selection-start-line="184" selection-end-line="184" />
-          <folding>
-            <element signature="e#46#63#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/localhooks/pre-commit.log">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/localhooks/pre-commit">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -670,6 +653,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="297">
           <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/localhooks/pre-commit.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/localhooks/pre_commit.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="210" column="72" lean-forward="true" selection-start-line="210" selection-start-column="72" selection-end-line="210" selection-end-column="72" />
+          <folding>
+            <element signature="e#46#63#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

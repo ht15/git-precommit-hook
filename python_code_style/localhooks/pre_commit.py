@@ -208,7 +208,7 @@ if __name__ == '__main__':
 		initLogger(sys.argv[0])
 		g.logger.info(str(sys.argv) + '\r\n')
 		g.logger.info(platform.system())
-		if 'Window' in platform.system() and sys.argv[0].find(':') != 1:
+		if 'Window' in platform.system() and sys.argv[1].find(':') == 1:
 			const.is_svn = True
 		else:
 			const.is_svn = False
