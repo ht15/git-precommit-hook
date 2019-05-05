@@ -4,6 +4,7 @@
     <list default="true" readonly="true" id="089743fa-abcd-4b46-97dc-3b3aae0e944a" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/localhooks/checkPath.py" beforeDir="false" afterPath="$PROJECT_DIR$/localhooks/checkPath.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/localhooks/const.py" beforeDir="false" afterPath="$PROJECT_DIR$/localhooks/const.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/localhooks/pre-commit" beforeDir="false" afterPath="$PROJECT_DIR$/localhooks/pre-commit" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/localhooks/pre_commit.py" beforeDir="false" afterPath="$PROJECT_DIR$/localhooks/pre_commit.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,11 +19,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="pre_commit.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="pre_commit.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/localhooks/pre_commit.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="163" column="42" lean-forward="true" selection-start-line="163" selection-start-column="42" selection-end-line="163" selection-end-column="42" />
+            <state relative-caret-position="738">
+              <caret line="184" lean-forward="true" selection-start-line="184" selection-end-line="184" />
               <folding>
                 <element signature="e#46#63#0" expanded="true" />
               </folding>
@@ -53,11 +54,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="checkPath.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="checkPath.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/localhooks/checkPath.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="5" column="17" lean-forward="true" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+            <state relative-caret-position="297">
+              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
             </state>
           </provider>
         </entry>
@@ -638,17 +639,27 @@
     <entry file="file://$PROJECT_DIR$/tox.ini">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/localhooks/pre-commit.log">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/localhooks/const.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="297">
           <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/localhooks/pre_commit.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="738">
+          <caret line="184" lean-forward="true" selection-start-line="184" selection-end-line="184" />
+          <folding>
+            <element signature="e#46#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/localhooks/pre-commit.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
         </state>
       </provider>
     </entry>
@@ -657,18 +668,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/localhooks/checkPath.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="5" column="17" lean-forward="true" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/localhooks/pre_commit.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="163" column="42" lean-forward="true" selection-start-line="163" selection-start-column="42" selection-end-line="163" selection-end-column="42" />
-          <folding>
-            <element signature="e#46#63#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="297">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
         </state>
       </provider>
     </entry>
