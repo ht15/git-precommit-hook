@@ -11,7 +11,7 @@
 """
 
 checkPath=[
-	'/home/ht/',
+	'E:/H48/code/client/script/',
 	'E:/H48/code/hd2_server/server/engine/',
-	'E:/branch_21/',
+	'/home/ht/precommit_hook/git-precommit-hook/test/',
 ]

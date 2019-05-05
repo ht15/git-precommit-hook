@@ -68,7 +68,6 @@ def getContentFromFile(filename):
 
 
 class PreCommit(object):
-	MASK_FIELD = ['pydevd', 'PycharmDebug']
 
 	def __init__(self, changelist, localProjectRoot):
 		self.changelist = changelist
@@ -87,13 +86,13 @@ class PreCommit(object):
 			self.pass_special_mask_field = False
 			return
 		self.changelist = self._filter_changelist_by_special_files(self.changelist)
-		if not const.is_windows:
+		if not const.is_svn:
 			self.changelist = self._change_to_dest_path(self.changelist)
 
 		for localPath in self.changelist:
 			for sp in checkPath.checkPath:
 				if localPath.startswith(sp):
-					self .needCheckScript = True
+					self.needCheckScript = True
 					break
 
 	def _change_to_dest_path(self, changelist):
@@ -110,8 +109,8 @@ class PreCommit(object):
 				continue
 			with open(localPath, 'r') as f:
 				for num, line in enumerate(f):
-					for key in self.MASK_FIELD:
-						if not localPath.endswith('pre_commit.py') and key in line:
+					for key in const.MASK_FIELD:
+						if not localPath.endswith('pre_commit.py') and not localPath.endswith('localhooks/const.py') and key in line:
 							check_result = check_result + key + ' in ' + localPath + ', line_no: ' + str(num) + '\n'
 		if check_result != '':
 			g.logger.error('result:\r\n' + check_result)
@@ -137,7 +136,7 @@ class PreCommit(object):
 		if index != -1:
 			source_filename = filename[index + 1:]
 			des_filename = source_filename.replace('/', '\\')
-			return check_client_file_exlucde(des_filename) # des_filename in set([r"script\ui\social_ui\FriendViewController.py,"])
+			return check_client_file_exlucde(des_filename)
 		return False
 
 	def _filter_changelist_by_special_server_files(self, filename):
@@ -149,11 +148,12 @@ class PreCommit(object):
 		return False
 
 	def _check_single_file_valid(self, file, check_file):
-		if const.is_windows:
+		g.logger.info('file : %s startswith %s: %s' % (file, check_file, 'True' if file.startswith(check_file) else 'False'))
+		if const.is_svn:
 			if not file.startswith(check_file) or not file.endswith('.py') or len(file.split(check_file)) <= 1:
 				return False
 		else:
-			if not file.endswith('.py'):
+			if not file.endswith('.py') or not file.startswith(check_file):
 				return False
 		if not os.path.exists(file):
 			return False
@@ -199,13 +199,6 @@ class PreCommit(object):
 			sys.stderr.write(
 				'[svn client hook]STATIC CODE REVIEW is not passed,Please Check and Modify:\n' + check_result)
 			st = False
-		else:
-			sortedChangeListStr = ''.join(sorted(self.changelist))
-			salt = 'de60e4dc78011991'
-			logPosi = HMAC(str(sortedChangeListStr), salt, md5).hexdigest().strip()
-			if getContentFromFile(sys.argv[3]):
-				msg = getContentFromFile(sys.argv[3]) + '|' + logPosi
-				g.logger.info('LogMessage: ' + msg)
 		return st
 
 
@@ -215,11 +208,11 @@ if __name__ == '__main__':
 		initLogger(sys.argv[0])
 		g.logger.info(str(sys.argv) + '\r\n')
 		g.logger.info(platform.system())
-		if 'Window' in platform.system():
-			const.is_windows = True
+		if 'Window' in platform.system() and sys.argv[0].find(':') != 1:
+			const.is_svn = True
 		else:
-			const.is_windows = False
-		if const.is_windows:
+			const.is_svn = False
+		if const.is_svn:
 			changelist = getContentFromFile(sys.argv[1]).splitlines()
 		else:
 			changelist = sys.argv[1:]

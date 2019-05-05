@@ -10,5 +10,6 @@
 """
 
 
-is_windows = True
+is_svn = True
 whiteList = []
+MASK_FIELD = ['pydevd', 'PycharmDebug']

@@ -1,0 +1,18 @@
+#!/bin/bash
+#
+#To enable this hook, move the file to .git/hooks
+echo $(dirname $0)
+
+PROJECTPATH=$(cd `dirname $0`;pwd)
+
+args=$(git diff-index --name-only HEAD)
+
+PYTHON_CODE_STYLE_DIR="python_code_style"
+
+t=`python $PROJECTPATH/../../$PYTHON_CODE_STYLE_DIR/localhooks/pre_commit.py $args`
+
+if [ "$t" = "0" ];then
+	exit 0
+else
+	exit 1
+fi
